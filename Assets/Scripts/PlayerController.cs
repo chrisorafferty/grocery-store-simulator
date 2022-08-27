@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     private List<Interactable> interactables = new List<Interactable>();
     private Interactable prevClosestInteractable = null;
 
+    private PushableController currentPushable = null;
+
     void Start() {
         rb = GetComponent<Rigidbody>();
         camTransform = Camera.main.transform;
@@ -95,6 +97,18 @@ public class PlayerController : MonoBehaviour {
             ShelfController shelf = closest.GetComponent<ShelfController>();
             if (shelf != null) {
                 shelf.TakeItem();
+            }
+        }
+
+        if (currentPushable != null && Input.GetButtonDown("ControlPushable")) {
+            currentPushable.LeavePushable();
+            currentPushable = null;
+        } else if (closest != null && currentPushable == null && Input.GetButtonDown("ControlPushable")) {
+            PushableController pushable = closest.GetComponent<PushableController>();
+            if (pushable != null) {
+                pushable.ControlPushable(transform);
+                currentPushable = pushable;
+                interactables.Remove(pushable);
             }
         }
 
