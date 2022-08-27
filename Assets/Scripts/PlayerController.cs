@@ -31,16 +31,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        if (GameManager.gameState != GameState.NORMAL) return;
+
         HandleInteractions();
     }
 
     // Put all physics related movement in FixedUpdate
     void FixedUpdate() {
+        if (GameManager.gameState != GameState.NORMAL) return;
+
         HandleMovement();
         HandleRotation();
     }
 
     private void HandleMovement() {
+        float scaledMaxSpeed = movementScaling() * maxSpeed;
+
         // Calculate Input forces
         Vector3 forwardsDir = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
         Vector3 rightDir = new Vector3(camTransform.right.x, 0, camTransform.right.z).normalized;
@@ -48,7 +54,7 @@ public class PlayerController : MonoBehaviour {
 
         // Add movement force
         float newSpeed = (rb.velocity + forceInput * Time.deltaTime).magnitude;
-        Vector3 forceToAdd = newSpeed < maxSpeed ? forceInput : forceInput.normalized * (maxSpeed - rb.velocity.magnitude);
+        Vector3 forceToAdd = newSpeed < scaledMaxSpeed ? forceInput : forceInput.normalized * (scaledMaxSpeed - rb.velocity.magnitude);
         rb.AddForce(forceToAdd, ForceMode.Acceleration);
     }
 
@@ -62,11 +68,11 @@ public class PlayerController : MonoBehaviour {
         float degPerSec = rb.angularVelocity.y * Mathf.Rad2Deg;
 
         // Calculate braking torque to stop near the center
-        if (angle > 0 && degPerSec / (rotateSpeed * 3) > angle) {
+        if (angle > 0 && degPerSec / (scaledRotateSpeed * 3) > angle) {
             torque = -angle * scaledRotateSpeed;
         }
 
-        if (angle < 0 && degPerSec / (rotateSpeed * 3) < angle) {
+        if (angle < 0 && degPerSec / (scaledRotateSpeed * 3) < angle) {
             torque = -angle * scaledRotateSpeed;
         }
 
