@@ -5,6 +5,7 @@ using UnityEngine;
 public class PushableController : Interactable {
 
     public Collider triggerCollider;
+    public float movementScaler = 1.0f;
     public PushableType pushableType;
 
     public void ControlPushable(Transform parent) {
@@ -18,7 +19,12 @@ public class PushableController : Interactable {
         triggerCollider.enabled = true;
         transform.parent = null;
     }
+    public float getMovementScaling()
+    {
+        return movementScaler;
+    }
 
     public override void OnEnter() {}
     public override void OnExit() {}
+
 }

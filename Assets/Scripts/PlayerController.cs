@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float maxSpeed = 5;
     public float rotateSpeed = 20;
     public float maxTorque = 20;
+    private Func<float> movementScaling = () => 1.0f;
 
     public ItemData itemData;
 
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour {
         // Calculate Input forces
         Vector3 forwardsDir = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
         Vector3 rightDir = new Vector3(camTransform.right.x, 0, camTransform.right.z).normalized;
-        Vector3 forceInput = acceleration * (forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal"));
+        Vector3 forceInput = movementScaling() * acceleration * (forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal"));
 
         // Add movement force
         float newSpeed = (rb.velocity + forceInput * Time.deltaTime).magnitude;
@@ -50,19 +52,21 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleRotation() {
+        float scaledRotateSpeed = movementScaling() * rotateSpeed;
+
         // Calculate torque to apply to rotate in line with camera
         Vector3 forwardsDir = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
         float angle = Vector3.SignedAngle(transform.forward, forwardsDir, Vector3.up);
-        float torque = angle * rotateSpeed;
+        float torque = angle * scaledRotateSpeed;
         float degPerSec = rb.angularVelocity.y * Mathf.Rad2Deg;
 
         // Calculate braking torque to stop near the center
         if (angle > 0 && degPerSec / (rotateSpeed * 3) > angle) {
-            torque = -angle * rotateSpeed;
+            torque = -angle * scaledRotateSpeed;
         }
 
         if (angle < 0 && degPerSec / (rotateSpeed * 3) < angle) {
-            torque = -angle * rotateSpeed;
+            torque = -angle * scaledRotateSpeed;
         }
 
         // Apply torque
@@ -101,11 +105,13 @@ public class PlayerController : MonoBehaviour {
         if (currentPushable != null && Input.GetButtonDown("ControlPushable")) {
             currentPushable.LeavePushable();
             currentPushable = null;
+            movementScaling = () => 1.0f;
         } else if (closestInteractable != null && currentPushable == null && Input.GetButtonDown("ControlPushable")) {
             PushableController pushable = closestInteractable.GetComponent<PushableController>();
             if (pushable != null) {
                 pushable.ControlPushable(transform);
                 currentPushable = pushable;
+                movementScaling = pushable.getMovementScaling;
                 interactables.Remove(pushable);
             }
         }
