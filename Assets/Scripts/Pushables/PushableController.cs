@@ -7,6 +7,15 @@ public class PushableController : Interactable {
     public Collider triggerCollider;
     public PushableType pushableType;
 
+    public Material highlightMat;
+    public MeshRenderer meshRenderer;
+
+    private Material normalMat;
+
+    void Start() {
+        normalMat = meshRenderer.sharedMaterial;
+    }
+
     public void ControlPushable(Transform parent) {
         triggerCollider.enabled = false;
         transform.position = parent.position;
@@ -19,6 +28,10 @@ public class PushableController : Interactable {
         transform.parent = null;
     }
 
-    public override void OnEnter() {}
-    public override void OnExit() {}
+    public override void OnEnter() {
+        meshRenderer.sharedMaterial = highlightMat;
+    }
+    public override void OnExit() {
+        meshRenderer.sharedMaterial = normalMat;
+    }
 }

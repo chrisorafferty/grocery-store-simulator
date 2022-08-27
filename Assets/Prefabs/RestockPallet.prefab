@@ -130,7 +130,7 @@ Transform:
   m_Children:
   - {fileID: 4587493088310846136}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4587493088387565580
 MonoBehaviour:
@@ -145,6 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 4587493088387565581}
+  pushableType: 0
+  highlightMat: {fileID: 2100000, guid: 7fac4c678b5ae7044b1aba7929d74c3c, type: 2}
+  meshRenderer: {fileID: 4587493088651915208}
 --- !u!135 &4587493088387565581
 SphereCollider:
   m_ObjectHideFlags: 0
