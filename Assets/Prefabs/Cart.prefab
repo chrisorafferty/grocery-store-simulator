@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 4824470434003758071}
+  pushableType: 1
 --- !u!135 &4824470434003758071
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0.95}
+  m_Center: {x: 0, y: 0, z: 1.58}
 --- !u!1001 &1106512888405262099
 PrefabInstance:
   m_ObjectHideFlags: 0

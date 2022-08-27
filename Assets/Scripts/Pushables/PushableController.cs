@@ -5,6 +5,7 @@ using UnityEngine;
 public class PushableController : Interactable {
 
     public Collider triggerCollider;
+    public PushableType pushableType;
 
     public void ControlPushable(Transform parent) {
         triggerCollider.enabled = false;

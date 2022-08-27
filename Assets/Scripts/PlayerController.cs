@@ -93,34 +93,49 @@ public class PlayerController : MonoBehaviour {
             prevClosestInteractable = closest;
         }
 
-        if (closest != null && Input.GetButtonDown("Interact")) {
-            ShelfController shelf = closest.GetComponent<ShelfController>();
-            if (shelf != null) {
-                shelf.TakeItem();
-            }
-        }
+        HandleShelfInteractions(closest);
+        HandlePushableInteractions(closest);
+    }
 
+    void HandlePushableInteractions(Interactable closestInteractable) {
         if (currentPushable != null && Input.GetButtonDown("ControlPushable")) {
             currentPushable.LeavePushable();
             currentPushable = null;
-        } else if (closest != null && currentPushable == null && Input.GetButtonDown("ControlPushable")) {
-            PushableController pushable = closest.GetComponent<PushableController>();
+        } else if (closestInteractable != null && currentPushable == null && Input.GetButtonDown("ControlPushable")) {
+            PushableController pushable = closestInteractable.GetComponent<PushableController>();
             if (pushable != null) {
                 pushable.ControlPushable(transform);
                 currentPushable = pushable;
                 interactables.Remove(pushable);
             }
         }
+    }
 
-        if (closest != null && Input.GetButtonDown("Fire2")) {
-            ShelfController shelf = closest.GetComponent<ShelfController>();
+    void HandleShelfInteractions(Interactable closestInteractable) {
+        if (closestInteractable != null && currentPushable != null && Input.GetButtonDown("Interact")) {
+            ShelfController shelf = closestInteractable.GetComponent<ShelfController>();
             if (shelf != null) {
-                if (shelf.itemData == null) shelf.SetItemType(itemData);
-                if (shelf.itemData == itemData) {
-                    shelf.Restock();
-                }
+                switch (currentPushable.pushableType) {
+                    case PushableType.RESTOCKING:
+                        AttemptRestockItem(shelf);
+                        break;
+                    case PushableType.PICKING:
+                        AttemptPickItem(shelf);
+                        break;
+                } 
             }
         }
+    }
+
+    void AttemptRestockItem(ShelfController shelf) {
+        if (shelf.itemData == null) shelf.SetItemType(itemData);
+        if (shelf.itemData == itemData) {
+            shelf.Restock();
+        }
+    }
+
+    void AttemptPickItem(ShelfController shelf) {
+        shelf.TakeItem();
     }
 
     void OnTriggerEnter(Collider other) {
