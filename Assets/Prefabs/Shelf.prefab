@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 2516191870422032851}
   - component: {fileID: 5413695956085659009}
   - component: {fileID: 6998364490012785325}
-  - component: {fileID: 8146432160863149103}
+  - component: {fileID: 5670261122414402916}
   m_Layer: 0
   m_Name: Shelf
   m_TagString: Untagged
@@ -242,8 +242,8 @@ MonoBehaviour:
   - {fileID: 1582706651018282225}
   highlightMat: {fileID: 2100000, guid: 5df3c849e67485d4b97c13c1c3b70237, type: 2}
   meshRenderer: {fileID: 2238822513219179265}
---- !u!135 &8146432160863149103
-SphereCollider:
+--- !u!65 &5670261122414402916
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -253,8 +253,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.07
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 3, y: 3, z: 1.5}
+  m_Center: {x: 0, y: 1.5, z: 1}
 --- !u!1 &6109579928284437539
 GameObject:
   m_ObjectHideFlags: 0

@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCollider: {fileID: 4587493088387565581}
+  movementScaler: 0.5
   pushableType: 0
   highlightMat: {fileID: 2100000, guid: 7fac4c678b5ae7044b1aba7929d74c3c, type: 2}
   meshRenderer: {fileID: 4587493088651915208}
