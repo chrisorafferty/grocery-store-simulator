@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     private Func<float> movementScaling = () => 1.0f;
 
     public ItemData itemData;
+    public Wallet wallet;
 
     private Rigidbody rb;
     private Transform camTransform;
