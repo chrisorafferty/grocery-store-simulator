@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2516191870422032851}
+  - component: {fileID: 5413695956085659009}
   m_Layer: 0
   m_Name: Shelf
   m_TagString: Untagged
@@ -30,8 +31,21 @@ Transform:
   m_Children:
   - {fileID: 1106418667136772206}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5413695956085659009
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831000582033557077}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 2.7, z: 1.2}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &635131341657149317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48,17 +62,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ce821c22dc5ac464ca95d72c7843547d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.8564987
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ce821c22dc5ac464ca95d72c7843547d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.081186
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ce821c22dc5ac464ca95d72c7843547d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.675226
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ce821c22dc5ac464ca95d72c7843547d,
         type: 3}
