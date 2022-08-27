@@ -2598,8 +2598,6 @@ MonoBehaviour:
   rotateSpeed: 3
   maxTorque: 40
   itemData: {fileID: 11400000, guid: 532844a8fe3dc5841a64cc3fc2907028, type: 2}
-  interactables: []
-  prevClosestInteractable: {fileID: 0}
 --- !u!54 &1103912042
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4507,6 +4505,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2238822513219179265, guid: c4cc963c19d71ba439d50326c91f76a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f37e6b039b3bef4c99e0ad78c4baf8a, type: 2}
     - target: {fileID: 2516191870422032851, guid: c4cc963c19d71ba439d50326c91f76a5,
         type: 3}
       propertyPath: m_RootOrder

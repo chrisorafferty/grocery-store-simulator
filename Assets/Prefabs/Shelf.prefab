@@ -240,6 +240,8 @@ MonoBehaviour:
   - {fileID: 6305929267414453723}
   - {fileID: 5315524157567849954}
   - {fileID: 1582706651018282225}
+  highlightMat: {fileID: 2100000, guid: 5df3c849e67485d4b97c13c1c3b70237, type: 2}
+  meshRenderer: {fileID: 2238822513219179265}
 --- !u!135 &8146432160863149103
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -467,6 +469,12 @@ PrefabInstance:
 --- !u!4 &1106418667136772206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ce821c22dc5ac464ca95d72c7843547d,
+    type: 3}
+  m_PrefabInstance: {fileID: 635131341657149317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2238822513219179265 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ce821c22dc5ac464ca95d72c7843547d,
     type: 3}
   m_PrefabInstance: {fileID: 635131341657149317}
   m_PrefabAsset: {fileID: 0}

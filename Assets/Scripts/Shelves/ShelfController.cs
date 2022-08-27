@@ -6,6 +6,14 @@ public class ShelfController : Interactable {
 
     public ItemData itemData { get; protected set; }
     public ShelfLocation[] shelfLocations;
+    public Material highlightMat;
+    public MeshRenderer meshRenderer;
+
+    private Material normalMat;
+
+    void Start() {
+        normalMat = meshRenderer.sharedMaterial;
+    }
 
     public bool SetItemType(ItemData itemType) {        
         foreach(ShelfLocation location in shelfLocations) {
@@ -45,6 +53,10 @@ public class ShelfController : Interactable {
         return tookItem;
     }
 
-    public override void OnEnter() {}
-    public override void OnExit() {}
+    public override void OnEnter() {
+        meshRenderer.sharedMaterial = highlightMat;
+    }
+    public override void OnExit() {
+        meshRenderer.sharedMaterial = normalMat;
+    }
 }

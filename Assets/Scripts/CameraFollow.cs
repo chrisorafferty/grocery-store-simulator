@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-    [SerializeField]
-    private Transform target;
-    [SerializeField]
-    private Vector2 optimalOffset = new Vector2(-5, 3);
-    [SerializeField][Range(0, 1)]
-    private float lerpAmount = 0.1f;
-    [SerializeField]
-    private float rotateSpeed = 100;
+    public Transform target;
+    public Vector2 optimalOffset = new Vector2(-5, 3);
+    public float lerpAmount = 0.1f;
+    public float rotateSpeed = 100;
 
     void Update() {
         transform.RotateAround(target.position, Vector3.up, Input.GetAxisRaw("Mouse X") * rotateSpeed * Time.deltaTime);

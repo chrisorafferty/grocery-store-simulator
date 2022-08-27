@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody rb;
     private Transform camTransform;
 
-    public List<Interactable> interactables = new List<Interactable>();
-    public Interactable prevClosestInteractable = null;
+    private List<Interactable> interactables = new List<Interactable>();
+    private Interactable prevClosestInteractable = null;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
