@@ -5,4 +5,5 @@ public class ItemData : ScriptableObject {
     public string itemName;
     public ItemController spawnablePrefab;
     public Sprite icon;
+    public float moneyValue = 1.0f;
 }

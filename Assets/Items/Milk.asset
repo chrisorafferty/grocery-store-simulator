@@ -16,3 +16,4 @@ MonoBehaviour:
   spawnablePrefab: {fileID: -4095835177837484452, guid: 4c227565b1c2f0c45a34b2247ce02909,
     type: 3}
   icon: {fileID: 0}
+  moneyValue: 2
