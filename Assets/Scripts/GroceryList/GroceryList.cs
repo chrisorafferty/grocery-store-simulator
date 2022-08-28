@@ -9,6 +9,13 @@ public class GroceryList {
     public delegate void GroceryListUpdated(GroceryList groceryList);
     public event GroceryListUpdated groceryListUpdatedEvent;
 
+    public bool IsFullyPicked { get {
+        foreach(GroceryListItem item in listItems) {
+            if (!item.IsFullyPicked) return false;
+        }
+        return true;
+    }}
+
     public GroceryList(List<GroceryListItem> listItems) {
         this.listItems = listItems;
     }

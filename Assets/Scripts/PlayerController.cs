@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour {
     public float maxTorque = 20;
     private Func<float> movementScaling = () => 1.0f;
 
-    public Wallet wallet;
-
     private Rigidbody rb;
     private Transform camTransform;
 
@@ -47,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         // Calculate Input forces
         Vector3 forwardsDir = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
         Vector3 rightDir = new Vector3(camTransform.right.x, 0, camTransform.right.z).normalized;
-        Vector3 forceInput = movementScaling() * acceleration * (forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal"));
+        Vector3 forceInput = acceleration * (forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal"));
 
         // Add movement force
         float newSpeed = (rb.velocity + forceInput * Time.deltaTime).magnitude;
@@ -103,6 +101,21 @@ public class PlayerController : MonoBehaviour {
 
         HandleShelfInteractions(closest);
         HandlePushableInteractions(closest);
+        HandleGroceryOrderInteractions(closest);
+    }
+
+    void HandleGroceryOrderInteractions(Interactable closestInteractable) {
+        if (closestInteractable != null && Input.GetButtonDown("Interact")) {
+            GroceryListAssigner assigner = closestInteractable.GetComponent<GroceryListAssigner>();
+            if (assigner != null) {
+                assigner.AssignPlayerGroceryList();
+            }
+
+            GroceryOrderDropoff dropoff = closestInteractable.GetComponent<GroceryOrderDropoff>();
+            if (dropoff != null) {
+                dropoff.DropOffPlayerGroceryOrder();
+            }
+        }
     }
 
     void HandlePushableInteractions(Interactable closestInteractable) {
@@ -146,7 +159,7 @@ public class PlayerController : MonoBehaviour {
     void AttemptPickItem(ShelfController shelf) {
         if (shelf.itemData == null) return;
 
-        GroceryListItem item = GameManager.playerGroceryList.GetItemOnList(shelf.itemData);
+        GroceryListItem item = GameManager.playerGroceryList?.GetItemOnList(shelf.itemData);
         if (item == null || item.IsFullyPicked) return;
 
         if (shelf.TakeItem()) {

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 725756880}
   - component: {fileID: 725756879}
   m_Layer: 5
-  m_Name: Image
+  m_Name: GroceryList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -676,5 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a4491e715c9b346a4259da04f18703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groceryListText: {fileID: 1549148615}
+  groceryListGameObject: {fileID: 725756877}
   moneyText: {fileID: 1194650711}
   playerWallet: {fileID: 11400000, guid: 174a9036af6fa7e4e9187e1608a7d7ce, type: 2}

@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour {
     public delegate void PlayerGroceryListUpdated(GroceryList groceryList);
     public static event PlayerGroceryListUpdated playerGroceryListUpdatedEvent;
 
-    public static GroceryList playerGroceryList = null;
+    public static GroceryList playerGroceryList { get; protected set; } = null;
 
     public ItemData[] items;
     public LayerMask managementSelectionMask;
     private int curItemSelection = -1;
     private ShelfController prevShelfSelection;
+    public static Wallet playerWallet = new Wallet();
 
     void Awake() {
         if (instance != null && instance != this) {
@@ -28,12 +29,6 @@ public class GameManager : MonoBehaviour {
         }
 
         instance = this;
-    }
-
-    void Start() {
-        playerGroceryList = GroceryListManager.GenerateRandomGroceryList();
-        playerGroceryList.groceryListUpdatedEvent += OnPlayerGroceryListUpdated;
-        playerGroceryListUpdatedEvent?.Invoke(playerGroceryList);
     }
 
     void Update() {
@@ -92,7 +87,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void OnPlayerGroceryListUpdated(GroceryList groceryList) {
+    public static void ClearPlayerGroceryList() {
+        playerGroceryList = null;
+        playerGroceryListUpdatedEvent?.Invoke(null);
+    }
+
+    public static void NewPlayerGroceryList() {
+        playerGroceryList = GroceryListManager.GenerateRandomGroceryList();
+        playerGroceryList.groceryListUpdatedEvent += OnPlayerGroceryListUpdated;
+        playerGroceryListUpdatedEvent?.Invoke(playerGroceryList);
+    }
+
+    private static void OnPlayerGroceryListUpdated(GroceryList groceryList) {
         playerGroceryListUpdatedEvent?.Invoke(groceryList);
     }
 }

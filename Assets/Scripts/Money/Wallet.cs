@@ -1,32 +1,32 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Wallet", menuName = "Custom/Wallet", order = 1)]
-public class Wallet : ScriptableObject
+public class Wallet
 {
-    public float value {
-        get => value;
+    private float _amount = 0.0f;
+    public float amount {
+        get => _amount;
         set
         {
-            this.value = value;
+            _amount = value;
             var e = new WalletValueUpdatedEventArgs();
-            e.NewValue = value;
+            e.NewValue = _amount;
             OnWalletValueUpdated(e);
         }
     }
     public bool allowNegativeValue = false;
     public event EventHandler<WalletValueUpdatedEventArgs> WalletValueUpdated;
 
-    public void deposit(float additionalValue)
+    public void deposit(float depositAmount)
     {
-        value += additionalValue;
+        amount += depositAmount;
     }
 
-    public bool tryWithdraw(float subtractValue)
+    public bool tryWithdraw(float withdrawalAmount)
     {
-        float newValue = value - subtractValue;
+        float newValue = amount - withdrawalAmount;
         if ((!allowNegativeValue) && newValue < 0) return false;
-        value = newValue;
+        amount = newValue;
         return true;
     }
 
