@@ -75,10 +75,10 @@ public class ShelfController : Interactable {
     }
 
     void OnEnable() {
-        GameManager.GameStateChangedEvent += OnGameStateChanged;
+        GameManager.gameStateChangedEvent += OnGameStateChanged;
     }
 
     void OnDisable() {
-        GameManager.GameStateChangedEvent -= OnGameStateChanged;
+        GameManager.gameStateChangedEvent -= OnGameStateChanged;
     }
 }

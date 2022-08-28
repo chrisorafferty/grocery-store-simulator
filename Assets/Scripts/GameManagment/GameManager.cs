@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GroceryListManager))]
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
@@ -9,7 +10,12 @@ public class GameManager : MonoBehaviour {
     public static GameState gameState { get; protected set; }
 
     public delegate void GameStateChanged(GameState newGameState, GameState oldGameState);
-    public static event GameStateChanged GameStateChangedEvent;
+    public static event GameStateChanged gameStateChangedEvent;
+
+    public delegate void PlayerGroceryListUpdated(GroceryList groceryList);
+    public static event PlayerGroceryListUpdated playerGroceryListUpdatedEvent;
+
+    public static GroceryList playerGroceryList = null;
 
     public ItemData[] items;
     public LayerMask managementSelectionMask;
@@ -24,6 +30,12 @@ public class GameManager : MonoBehaviour {
         instance = this;
     }
 
+    void Start() {
+        playerGroceryList = GroceryListManager.GenerateRandomGroceryList();
+        playerGroceryList.groceryListUpdatedEvent += OnPlayerGroceryListUpdated;
+        playerGroceryListUpdatedEvent?.Invoke(playerGroceryList);
+    }
+
     void Update() {
         if (Input.GetButtonDown("ManagementSwitch")) {
             GameState prevGameState = gameState;
@@ -31,7 +43,7 @@ public class GameManager : MonoBehaviour {
             else if (gameState == GameState.NORMAL) gameState = GameState.MANAGEMENT;
 
             if (prevGameState != gameState) {
-                GameStateChangedEvent?.Invoke(gameState, prevGameState);
+                gameStateChangedEvent?.Invoke(gameState, prevGameState);
             }
         }
 
@@ -78,5 +90,9 @@ public class GameManager : MonoBehaviour {
                 shelf.SetItemType(items[curItemSelection]);
             }
         }
+    }
+
+    void OnPlayerGroceryListUpdated(GroceryList groceryList) {
+        playerGroceryListUpdatedEvent?.Invoke(groceryList);
     }
 }

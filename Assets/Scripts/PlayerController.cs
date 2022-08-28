@@ -144,7 +144,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void AttemptPickItem(ShelfController shelf) {
-        shelf.TakeItem();
+        if (shelf.itemData == null) return;
+
+        GroceryListItem item = GameManager.playerGroceryList.GetItemOnList(shelf.itemData);
+        if (item == null || item.IsFullyPicked) return;
+
+        if (shelf.TakeItem()) {
+            GameManager.playerGroceryList.pickItemOnList(item.itemData);
+        }
     }
 
     void OnTriggerEnter(Collider other) {
