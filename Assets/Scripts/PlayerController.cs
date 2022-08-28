@@ -26,7 +26,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if (GameManager.gameState != GameState.NORMAL) return;
+        if (GameManager.gameState != GameState.NORMAL) {
+            if (prevClosestInteractable != null) {
+                prevClosestInteractable.OnExit();
+                prevClosestInteractable = null;
+            }
+            return;
+        }
 
         HandleInteractions();
     }
