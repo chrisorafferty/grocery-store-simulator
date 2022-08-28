@@ -6,8 +6,16 @@ using TMPro;
 public class UIManager : MonoBehaviour {
 
     public TextMeshProUGUI groceryListText;
+    public GameObject groceryListGameObject;
+
+    void Awake() {
+        UpdateGroceryListUI(null);
+    }
 
     void UpdateGroceryListUI(GroceryList groceryList) {
+        groceryListGameObject.SetActive(groceryList != null);
+        if (groceryList == null) return;
+
         string listString = "";
         foreach(GroceryListItem item in groceryList.listItems) {
             if (item.quantityPicked == 0) {
@@ -22,7 +30,7 @@ public class UIManager : MonoBehaviour {
         groceryListText.SetText(listString);
     }
 
-    void OnPlayerGroceryListUpdated(GroceryList groceryList) {
+    void OnPlayerGroceryListUpdated(GroceryList groceryList) {        
         UpdateGroceryListUI(groceryList);
     }
 

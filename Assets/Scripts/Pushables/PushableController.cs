@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PushableController : Interactable {
+public class PushableController : HighlightableInteractable {
 
     public Collider triggerCollider;
     public float movementScaler = 1.0f;
     public PushableType pushableType;
-
-    public Material highlightMat;
-    public MeshRenderer meshRenderer;
-
-    private Material normalMat;
-
-    void Start() {
-        normalMat = meshRenderer.sharedMaterial;
-    }
 
     public void ControlPushable(Transform parent) {
         triggerCollider.enabled = false;
@@ -28,15 +19,8 @@ public class PushableController : Interactable {
         triggerCollider.enabled = true;
         transform.parent = null;
     }
-    public float getMovementScaling()
-    {
-        return movementScaler;
-    }
 
-    public override void OnEnter() {
-        meshRenderer.sharedMaterial = highlightMat;
-    }
-    public override void OnExit() {
-        meshRenderer.sharedMaterial = normalMat;
+    public float getMovementScaling() {
+        return movementScaler;
     }
 }

@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShelfController : Interactable {
+public class ShelfController : HighlightableInteractable {
 
     public ItemData itemData { get; protected set; }
     public ShelfLocation[] shelfLocations;
-    public Material highlightMat;
-    public MeshRenderer meshRenderer;
     public Image managementIconDisplay;
     public Image shelfIconDisplay;
 
-    private Material normalMat;
-
-    void Start() {
-        normalMat = meshRenderer.sharedMaterial;
+    protected override void Start() {
+        base.Start();
         SetIconDisplayFromGameState(GameManager.gameState);
     }
 
@@ -65,13 +61,6 @@ public class ShelfController : Interactable {
 
     private void OnGameStateChanged(GameState newGameState, GameState oldGameState) {
         SetIconDisplayFromGameState(newGameState);
-    }
-
-    public override void OnEnter() {
-        meshRenderer.sharedMaterial = highlightMat;
-    }
-    public override void OnExit() {
-        meshRenderer.sharedMaterial = normalMat;
     }
 
     void OnEnable() {
