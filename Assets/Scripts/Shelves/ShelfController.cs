@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShelfController : Interactable {
 
@@ -8,11 +9,13 @@ public class ShelfController : Interactable {
     public ShelfLocation[] shelfLocations;
     public Material highlightMat;
     public MeshRenderer meshRenderer;
+    public Image iconDisplay;
 
     private Material normalMat;
 
     void Start() {
         normalMat = meshRenderer.sharedMaterial;
+        SetIconDisplayFromGameState(GameManager.gameState);
     }
 
     public bool SetItemType(ItemData itemType) {        
@@ -20,6 +23,7 @@ public class ShelfController : Interactable {
             if (location.Filled) return false;
         }
         itemData = itemType;
+        iconDisplay.sprite = itemType.icon;
         return true;
     }
 
@@ -53,10 +57,26 @@ public class ShelfController : Interactable {
         return tookItem;
     }
 
+    private void SetIconDisplayFromGameState(GameState gameState) {
+        iconDisplay.enabled = gameState == GameState.MANAGEMENT;
+    }
+
+    private void OnGameStateChanged(GameState newGameState, GameState oldGameState) {
+        SetIconDisplayFromGameState(newGameState);
+    }
+
     public override void OnEnter() {
         meshRenderer.sharedMaterial = highlightMat;
     }
     public override void OnExit() {
         meshRenderer.sharedMaterial = normalMat;
+    }
+
+    void OnEnable() {
+        GameManager.GameStateChangedEvent += OnGameStateChanged;
+    }
+
+    void OnDisable() {
+        GameManager.GameStateChangedEvent -= OnGameStateChanged;
     }
 }
