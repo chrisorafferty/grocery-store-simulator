@@ -1,36 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : MonoBehaviour
+{
+    public TextMeshProUGUI moneyText;
+    public Wallet playerWallet;
 
-    public TextMeshProUGUI groceryListText;
-
-    void UpdateGroceryListUI(GroceryList groceryList) {
-        string listString = "";
-        foreach(GroceryListItem item in groceryList.listItems) {
-            if (item.quantityPicked == 0) {
-                listString += item.quantity + "x " + item.itemData.itemName;
-            } else if (item.quantityPicked == item.quantity) {
-                listString += "<s>" + item.quantity + "x " + item.itemData.itemName + "</s>";
-            } else {
-                listString += "<s>" + item.quantity + "</s> " + (item.quantity - item.quantityPicked) + "x " + item.itemData.itemName;
-            }
-            listString += "\n";
-        }
-        groceryListText.SetText(listString);
+    // Start is called before the first frame update
+    void Start()
+    {
+        SetMoneyTextFromValue(playerWallet.value);
+        playerWallet.WalletValueUpdated += OnWalletValueUpdated;
+        playerWallet.deposit(100);
     }
 
-    void OnPlayerGroceryListUpdated(GroceryList groceryList) {
-        UpdateGroceryListUI(groceryList);
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
-    void OnEnable() {
-        GameManager.playerGroceryListUpdatedEvent += OnPlayerGroceryListUpdated;
+    public void OnWalletValueUpdated(object sender, WalletValueUpdatedEventArgs e)
+    {
+        SetMoneyTextFromValue(e.NewValue);
     }
 
-    void OnDisable() {
-        GameManager.playerGroceryListUpdatedEvent -= OnPlayerGroceryListUpdated;
+    public void SetMoneyTextFromValue(float value)
+    {
+        moneyText.text = $"Money: ${value:0.2f}";
     }
 }
