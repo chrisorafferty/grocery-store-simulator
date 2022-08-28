@@ -9,13 +9,13 @@ public class Wallet
         set
         {
             _amount = value;
-            var e = new WalletValueUpdatedEventArgs();
-            e.NewValue = _amount;
-            OnWalletValueUpdated(e);
+            walletAmountUpdatedEvent?.Invoke(_amount);
         }
     }
     public bool allowNegativeValue = false;
-    public event EventHandler<WalletValueUpdatedEventArgs> WalletValueUpdated;
+
+    public delegate void WalletAmountUpdated(float newAmount);
+    public event WalletAmountUpdated walletAmountUpdatedEvent;
 
     public void deposit(float depositAmount)
     {
@@ -29,14 +29,4 @@ public class Wallet
         amount = newValue;
         return true;
     }
-
-    protected virtual void OnWalletValueUpdated(WalletValueUpdatedEventArgs e)
-    {
-        EventHandler<WalletValueUpdatedEventArgs> handler = WalletValueUpdated;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
-    }
-
 }

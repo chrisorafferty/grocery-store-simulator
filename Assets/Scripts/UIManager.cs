@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         SetMoneyTextFromValue(GameManager.playerWallet.amount);
-        GameManager.playerWallet.WalletValueUpdated += OnWalletValueUpdated;
+        GameManager.playerWallet.walletAmountUpdatedEvent += OnWalletValueUpdated;
         GameManager.playerWallet.deposit(100);
     }
 
@@ -45,9 +45,9 @@ public class UIManager : MonoBehaviour
         UpdateGroceryListUI(groceryList);
     }
 
-    public void OnWalletValueUpdated(object sender, WalletValueUpdatedEventArgs e)
+    public void OnWalletValueUpdated(float newAmount)
     {
-        SetMoneyTextFromValue(e.NewValue);
+        SetMoneyTextFromValue(newAmount);
     }
 
     public void SetMoneyTextFromValue(float value)
