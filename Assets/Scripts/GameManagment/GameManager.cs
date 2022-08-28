@@ -50,16 +50,13 @@ public class GameManager : MonoBehaviour {
     }
 
     void HandleManagementState() {
-        if (Input.GetKeyDown(KeyCode.Alpha0) && items.Length > 0) curItemSelection = 0;
-        if (Input.GetKeyDown(KeyCode.Alpha1) && items.Length > 1) curItemSelection = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha2) && items.Length > 2) curItemSelection = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha3) && items.Length > 3) curItemSelection = 3;
-        if (Input.GetKeyDown(KeyCode.Alpha4) && items.Length > 4) curItemSelection = 4;
-        if (Input.GetKeyDown(KeyCode.Alpha5) && items.Length > 5) curItemSelection = 5;
-        if (Input.GetKeyDown(KeyCode.Alpha6) && items.Length > 6) curItemSelection = 6;
-        if (Input.GetKeyDown(KeyCode.Alpha7) && items.Length > 7) curItemSelection = 7;
-        if (Input.GetKeyDown(KeyCode.Alpha8) && items.Length > 8) curItemSelection = 8;
-        if (Input.GetKeyDown(KeyCode.Alpha9) && items.Length > 9) curItemSelection = 9;
+        if (Input.GetKeyDown(KeyCode.Alpha1) && items.Length > 0) curItemSelection = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha2) && items.Length > 1) curItemSelection = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha3) && items.Length > 2) curItemSelection = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha4) && items.Length > 3) curItemSelection = 3;
+        if (Input.GetKeyDown(KeyCode.Alpha5) && items.Length > 4) curItemSelection = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha6) && items.Length > 5) curItemSelection = 5;
+        if (Input.GetKeyDown(KeyCode.Alpha7) && items.Length > 6) curItemSelection = 6;
 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

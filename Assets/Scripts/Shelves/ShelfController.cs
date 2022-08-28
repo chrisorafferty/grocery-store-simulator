@@ -9,7 +9,8 @@ public class ShelfController : Interactable {
     public ShelfLocation[] shelfLocations;
     public Material highlightMat;
     public MeshRenderer meshRenderer;
-    public Image iconDisplay;
+    public Image managementIconDisplay;
+    public Image shelfIconDisplay;
 
     private Material normalMat;
 
@@ -23,7 +24,8 @@ public class ShelfController : Interactable {
             if (location.Filled) return false;
         }
         itemData = itemType;
-        iconDisplay.sprite = itemType.icon;
+        managementIconDisplay.sprite = itemType.icon;
+        shelfIconDisplay.sprite = itemType.icon;
         return true;
     }
 
@@ -58,7 +60,7 @@ public class ShelfController : Interactable {
     }
 
     private void SetIconDisplayFromGameState(GameState gameState) {
-        iconDisplay.enabled = gameState == GameState.MANAGEMENT;
+        managementIconDisplay.enabled = gameState == GameState.MANAGEMENT;
     }
 
     private void OnGameStateChanged(GameState newGameState, GameState oldGameState) {
