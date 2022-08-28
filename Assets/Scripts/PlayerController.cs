@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour {
     public float maxTorque = 20;
     private Func<float> movementScaling = () => 1.0f;
 
-    public ItemData itemData;
     public Wallet wallet;
 
     private Rigidbody rb;
@@ -26,8 +25,6 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody>();
         camTransform = Camera.main.transform;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update() {
@@ -141,8 +138,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void AttemptRestockItem(ShelfController shelf) {
-        if (shelf.itemData == null) shelf.SetItemType(itemData);
-        if (shelf.itemData == itemData) {
+        if (shelf.itemData != null) {
             shelf.Restock();
         }
     }
