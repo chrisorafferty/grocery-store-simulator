@@ -54,6 +54,16 @@ public class GameManager : MonoBehaviour {
                 prevShelfSelection = null;
             }
         }
+
+        if (Input.GetButtonDown("DebugAddMoney"))
+        {
+            playerWallet.deposit(10);
+        }
+
+        if (Input.GetButtonDown("DebugRemoveMoney"))
+        {
+            playerWallet.tryWithdraw(10);
+        }
     }
 
     void HandleManagementState() {
