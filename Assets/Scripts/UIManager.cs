@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine;
+using System.Text;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,18 +28,18 @@ public class UIManager : MonoBehaviour
         groceryListGameObject.SetActive(groceryList != null);
         if (groceryList == null) return;
 
-        string listString = "";
+        StringBuilder listString = new StringBuilder();
         foreach(GroceryListItem item in groceryList.listItems) {
             if (item.quantityPicked == 0) {
-                listString += item.quantity + "x " + item.itemData.itemName;
+                listString.Append($"{item.quantity}x {item.itemData.itemName}");
             } else if (item.quantityPicked == item.quantity) {
-                listString += "<s>" + item.quantity + "x " + item.itemData.itemName + "</s>";
+                listString.Append($"<s>{item.quantity}x {item.itemData.itemName}</s>");
             } else {
-                listString += "<s>" + item.quantity + "</s> " + (item.quantity - item.quantityPicked) + "x " + item.itemData.itemName;
+                listString.Append($"<s>{item.quantity}</s>{(item.quantity - item.quantityPicked)}x {item.itemData.itemName}");
             }
-            listString += "\n";
+            listString.Append("\n");
         }
-        groceryListText.SetText(listString);
+        groceryListText.SetText(listString.ToString());
     }
 
     void OnPlayerGroceryListUpdated(GroceryList groceryList) {        
