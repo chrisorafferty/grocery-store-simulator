@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Chips
   spawnablePrefab: {fileID: 7527594838939144830, guid: 5c013e6e2e56e114e8c1b8d8225757aa,
     type: 3}
-  icon: {fileID: 2800000, guid: 623441a4050159d4fbb42d49f7593119, type: 3}
+  icon: {fileID: 21300000, guid: 05505ae45af1a1e4ab4b22e963bba471, type: 3}
   moneyValue: 3
   iconGenerationData:
     camDistance: 3

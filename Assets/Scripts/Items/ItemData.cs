@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject {
     public string itemName;
     public ItemController spawnablePrefab;
-    public Texture2D icon;
+    public Sprite icon;
     public float moneyValue = 1.0f;
     public IconGenerationData iconGenerationData = new IconGenerationData(3, 0.2f, 10, new Vector3(0, 180, 0));
 }
