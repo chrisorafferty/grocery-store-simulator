@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     public float maxSpeed = 5;
     public float rotateSpeed = 20;
     public float maxTorque = 20;
+    public Animator anim; 
+
     private Func<float> movementScaling = () => 1.0f;
 
     private Rigidbody rb;
@@ -35,6 +37,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         HandleInteractions();
+
+        anim.SetFloat("Speed", rb.velocity.magnitude);
+        anim.SetBool("Pushing", currentPushable != null);
     }
 
     // Put all physics related movement in FixedUpdate

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine;
 using System.Text;
 
 public class UIManager : MonoBehaviour
@@ -16,7 +15,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         SetMoneyTextFromValue(GameManager.playerWallet.amount);
-        GameManager.playerWallet.walletAmountUpdatedEvent += OnWalletValueUpdated;
         GameManager.playerWallet.deposit(100);
     }
 
@@ -54,5 +52,15 @@ public class UIManager : MonoBehaviour
     public void SetMoneyTextFromValue(float value)
     {
         moneyText.text = $"Money: {value:C2}";
+    }
+
+    void OnEnable() {
+        GameManager.playerWallet.walletAmountUpdatedEvent += OnWalletValueUpdated;
+        GameManager.playerGroceryListUpdatedEvent += OnPlayerGroceryListUpdated;
+    }
+
+    void OnDisable() {
+        GameManager.playerWallet.walletAmountUpdatedEvent -= OnWalletValueUpdated;
+        GameManager.playerGroceryListUpdatedEvent -= OnPlayerGroceryListUpdated;
     }
 }

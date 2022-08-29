@@ -144,11 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4555ada1bdf61f9499ac32b434803cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMat: {fileID: 2100000, guid: 7fac4c678b5ae7044b1aba7929d74c3c, type: 2}
+  meshRenderer: {fileID: 4587493088651915208}
   triggerCollider: {fileID: 4587493088387565581}
   movementScaler: 0.5
   pushableType: 0
-  highlightMat: {fileID: 2100000, guid: 7fac4c678b5ae7044b1aba7929d74c3c, type: 2}
-  meshRenderer: {fileID: 4587493088651915208}
 --- !u!135 &4587493088387565581
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -189,8 +189,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4587493088651915211}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.92, z: 0}
-  m_LocalScale: {x: 0.8, y: 4, z: 0.8}
+  m_LocalPosition: {x: 0, y: 3.76, z: 0}
+  m_LocalScale: {x: 0.8, y: 7, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4587493088310846136}
