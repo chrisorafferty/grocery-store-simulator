@@ -10,6 +10,8 @@ public class CameraFollow : MonoBehaviour {
     public float lookHeightOffset = 1.5f;
     public float lerpAmount = 0.1f;
     public float rotateSpeed = 100;
+    [Range(0, 1)]
+    public float sensitivity = 0.5f;
 
     [Header("Management GameState")]
     public float targetManagementHeight = 20;
@@ -55,6 +57,6 @@ public class CameraFollow : MonoBehaviour {
     void handleNormalGameStateMovement() {
         if (target == null) return;
 
-        transform.RotateAround(target.position, Vector3.up, Input.GetAxisRaw("Mouse X") * rotateSpeed * Time.deltaTime);
+        transform.RotateAround(target.position, Vector3.up, Input.GetAxisRaw("Mouse X") * rotateSpeed * sensitivity * Time.deltaTime);
     }
 }

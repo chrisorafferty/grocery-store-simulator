@@ -1154,6 +1154,7 @@ MonoBehaviour:
   lookHeightOffset: 1.5
   lerpAmount: 0.2
   rotateSpeed: 500
+  sensitivity: 0.5
   targetManagementHeight: 20
   managementMoveSpeed: 50
   managementLerpAmount: 0.1
@@ -2903,6 +2904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 20
+  deceleration: 20
   maxSpeed: 10
   rotateSpeed: 3
   maxTorque: 40

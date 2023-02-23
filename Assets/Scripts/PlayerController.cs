@@ -6,7 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
-    public float acceleration = 5;
+    public float acceleration = 20;
+    public float deceleration = 15;
     public float maxSpeed = 5;
     public float rotateSpeed = 20;
     public float maxTorque = 20;
@@ -46,8 +47,8 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         if (GameManager.gameState != GameState.NORMAL) return;
 
-        HandleMovement();
         HandleRotation();
+        HandleMovement();
     }
 
     private void HandleMovement() {
@@ -56,11 +57,19 @@ public class PlayerController : MonoBehaviour {
         // Calculate Input forces
         Vector3 forwardsDir = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
         Vector3 rightDir = new Vector3(camTransform.right.x, 0, camTransform.right.z).normalized;
-        Vector3 forceInput = acceleration * (forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal"));
+        Vector3 inputForce = forwardsDir * Input.GetAxisRaw("Vertical") + rightDir * Input.GetAxisRaw("Horizontal");
+        Vector3 normalizedInputForce = inputForce.sqrMagnitude > 0.01f ? inputForce.normalized : Vector3.zero;
+        Vector3 acceleratedInputForce = acceleration * normalizedInputForce;
 
-        // Add movement force
-        float newSpeed = (rb.velocity + forceInput * Time.deltaTime).magnitude;
-        Vector3 forceToAdd = newSpeed < scaledMaxSpeed ? forceInput : forceInput.normalized * (scaledMaxSpeed - rb.velocity.magnitude);
+        // Find deceleration if no input given
+        Vector3 decelerationForce = GetDecelerationForce(normalizedInputForce, rb.velocity);
+        rb.AddForce(decelerationForce, ForceMode.Acceleration);   
+
+        // Find new speed ignoring max speed
+        float newSpeed = (rb.velocity + acceleratedInputForce * Time.deltaTime).magnitude;
+
+        // Use the acceleration force unless it will be larger than the max speed
+        Vector3 forceToAdd = newSpeed < scaledMaxSpeed ? acceleratedInputForce : normalizedInputForce * (scaledMaxSpeed - rb.velocity.magnitude);
         rb.AddForce(forceToAdd, ForceMode.Acceleration);
     }
 
@@ -85,6 +94,32 @@ public class PlayerController : MonoBehaviour {
         // Apply torque
         rb.AddTorque(0, torque, 0, ForceMode.Acceleration);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
+
+    private Vector3 GetDecelerationForce(Vector3 inputForce, Vector3 curVel) {
+        // No input provided
+        if (inputForce.sqrMagnitude < 0.05f) {
+            Vector3 rawDeceleration = -curVel.normalized * deceleration;
+            // We are about to decelerate too much and start ping ponging
+            if (curVel.magnitude < rawDeceleration.magnitude * Time.deltaTime) {
+                // Just cancel out the current velocity (probably off as it will get modified by Time.deltaTime but oh well)
+                return -curVel;
+            }
+            return rawDeceleration;
+        }
+
+        // Currently being accelerated via an input force. Decelerate any sideways velocity
+
+        Vector3 sidewaysDir = Vector3.Cross(inputForce.normalized, Vector3.up);
+        Vector3 sidewaysVel = sidewaysDir * Vector3.Dot(sidewaysDir, curVel);
+        Vector3 sidewaysDeceleration = -sidewaysVel.normalized * deceleration;
+
+        // We are about to decelerate too much and start ping ponging
+        if (sidewaysVel.magnitude < sidewaysDeceleration.magnitude * Time.deltaTime) {
+            // Just cancel out the current sideways velocity (probably off as it will get modified by Time.deltaTime but oh well)
+            return -sidewaysVel;
+        }
+        return sidewaysDeceleration;
     }
 
     void HandleInteractions() {
